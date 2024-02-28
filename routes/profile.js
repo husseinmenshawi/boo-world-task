@@ -18,9 +18,14 @@ module.exports = function () {
     new ProfileController(req, res, next).getProfileById();
   });
 
-  router.get("/*", function (req, res, next) {
+  router.get("/:id", async function (req, res, next) {
+    const profile = await new ProfileController(
+      req,
+      res,
+      next
+    ).getProfileForRender();
     res.render("profile_template", {
-      profile: profiles[0],
+      profile: profile,
     });
   });
 

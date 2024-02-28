@@ -50,6 +50,15 @@ class ProfileController {
       return this.res.status(error.code).json({ message: error.message });
     }
   }
+
+  async getProfileForRender() {
+    try {
+      const profileId = this.req.params.id;
+      return Profile.findById(profileId);
+    } catch (error) {
+      return false;
+    }
+  }
 }
 
 module.exports = ProfileController;
