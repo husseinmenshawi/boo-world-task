@@ -23,6 +23,27 @@ async function validateCreateProfile(profile) {
   }
 }
 
+async function validateGetProfileComments(profile) {
+  const profileSchema = yup.object().shape({
+    sort: yup.string().lowercase().oneOf(["best", "recent"]).required(),
+    filter: yup
+      .string()
+      .lowercase()
+      .oneOf(["mbti", "enneagram", "zodiac"])
+      .optional(),
+  });
+
+  try {
+    await profileSchema.validate(profile);
+    return;
+  } catch (error) {
+    const handledError = new Error(error.message);
+    handledError.code = 400;
+    throw handledError;
+  }
+}
+
 module.exports = {
   validateCreateProfile,
+  validateGetProfileComments,
 };

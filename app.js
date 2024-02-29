@@ -14,7 +14,8 @@ app.use(bodyParser.json());
 app.set("view engine", "ejs");
 
 // routes
-app.use("/", require("./routes/profile")());
+app.use("/profile", require("./routes/profile")());
+app.use("/user", require("./routes/user")());
 
 // start server
 app.listen(port);
